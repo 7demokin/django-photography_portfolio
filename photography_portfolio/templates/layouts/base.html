@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>
+            {% block title %}
+            {% endblock title %}
+        </title>
+        <link rel="shortcut icon"
+              href="{% static 'svg/logo.svg' %}"
+              type="image/x-icon"/>
+        <meta name="description"
+              content="{% block description %} {% endblock description %}"/>
+        <meta name="keywords"
+              content="{% block keywords %}  {% endblock keywords %}"/>
+
+        {% block headScripts %}
+        {% endblock headScripts %}
+
+        {% comment %} update css_version upon changes in css files {% endcomment %}
+        {% with css_version="0.1" %}
+            <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+            {% block stylesheet %}
+            {% endblock stylesheet %}
+        {% endwith %}
+    </head>
+    <body>
+        <header>
+            {% include "layouts/partials/menu.html" %}
+        </header>
+
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
+ 
+        {% include "layouts/partials/footer.html" %}
+
+        {% comment %} update js_version upon changes in js files {% endcomment %}
+        {% with js_version="0.1" %}
+            {% block scripts %}
+            {% endblock scripts %}
+        {% endwith %}
+    </body>
+</html>
